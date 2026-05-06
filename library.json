@@ -4,6 +4,7 @@
   "build": {
     "includeDir": ".",
     "srcDir": "tensorflow",
+    "extraScript": "extra_script.py",
     "srcFilter": [
       "-<*>",
       "+<lite/core/api/flatbuffer_conversions.cc>",

@@ -39,3 +39,31 @@ Additional third-party license texts are included in:
 * [third_party/kissfft/COPYING](third_party/kissfft/COPYING)
 
 For additional licensing details and notices, please also refer to the upstream TensorFlow Lite Micro project.
+
+## Required Build Flag: TF_LITE_STATIC_MEMORY
+
+This library automatically defines the following macro during the build:
+
+```c
+TF_LITE_STATIC_MEMORY
+```
+
+### Why this matters
+
+`TF_LITE_STATIC_MEMORY` affects TensorFlow Lite Micro types and memory-related behavior at compile time.
+Because this configuration is also referenced from header files, the macro must be defined consistently for both:
+
+* the library itself
+* any application code including TensorFlow Lite Micro headers
+
+If TF_LITE_STATIC_MEMORY is not set consistently:
+
+* ABI mismatches can occur
+* compilation may still succeed
+* behavior may be incorrect or fail at runtime
+
+### How this library handles it
+
+This library uses a PlatformIO `extraScript` to define `TF_LITE_STATIC_MEMORY` globally for the entire build.
+
+This ensures that both the library sources and all consuming application code are compiled with the same configuration.
